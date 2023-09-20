@@ -1,0 +1,90 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+ // estructura para representar un código de ejemplo
+struct EjemploDeCodigo {
+    string titulo;
+    string codigo;
+};
+
+// Función para agregar código de ejemplo
+void AgregarCodigo(vector<EjemploDeCodigo>& codigos, const string& titulo, const string& codigo) {
+  
+    EjemploDeCodigo nuevoCodigo = {titulo, codigo};
+    codigos.push_back(nuevoCodigo);
+    cout << "Código agregado exitosamente." << endl;
+}
+
+// Función para mostrar todos los códigos
+void MostrarCodigos(const vector<EjemploDeCodigo>& codigos) {
+    cout << "Códigos de ejemplo disponibles:" << endl;
+  
+    for (const EjemploDeCodigo& codigo : codigos) {
+        cout << "Título: " << codigo.titulo << endl;
+        cout << "Código: " << codigo.codigo << endl;
+        cout << "-----------------------" << endl;
+    }
+}
+
+// Función para buscar un código de ejemplo por título
+void BuscarPorTitulo(const vector<EjemploDeCodigo>& codigos, const string& titulo) {
+    cout << "Resultados de la búsqueda por título '" << titulo << "':" << endl;
+    bool encontrado = false;
+  
+    for (const EjemploDeCodigo& codigo : codigos) {
+        if (codigo.titulo == titulo) {
+            cout << "Título: " << codigo.titulo << endl;
+            cout << "Código: " << codigo.codigo << endl;
+            cout << "-----------------------" << endl;
+            encontrado = true;
+        }
+    }
+    if (!encontrado) {
+        cout << "No se encontraron códigos con ese título." << endl;
+    }
+}
+
+int main() {
+  
+    vector<EjemploDeCodigo> codigos; // Almacenar códigos de ejemplo
+
+    while (true) {
+      
+        cout << "Menú:" << endl;
+        cout << "1. Agregar código de ejemplo" << endl;
+        cout << "2. Mostrar todos los códigos de ejemplo" << endl;
+        cout << "3. Buscar código de ejemplo por título" << endl;
+        cout << "4. Salir" << endl;
+
+        int opcion;
+        cin >> opcion;
+
+        if (opcion == 1) {
+            string titulo, codigo;
+            cout << "Ingrese el título: ";
+            cin.ignore(); // Para capturar espacios en el título
+            getline(cin, titulo);
+            cout << "Ingrese el código: ";
+            getline(cin, codigo);
+
+            AgregarCodigo(codigos, titulo, codigo);
+        } else if (opcion == 2) {
+            MostrarCodigos(codigos);
+        } else if (opcion == 3) {
+            string titulo;
+            cout << "Ingrese el título a buscar: ";
+            cin.ignore();
+            getline(cin, titulo);
+            BuscarPorTitulo(codigos, titulo);
+        } else if (opcion == 4) {
+            break;
+        } else {
+            cout << "Opción no válida. Intente de nuevo." << endl;
+      }
+      
+    }
+    return 0;
+}
